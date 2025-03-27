@@ -1,0 +1,9 @@
+# Ignore node_modules (installed dependencies)
+node_modules/
+
+# Ignore package-lock.json (auto-generated dependency lock file)
+package-lock.json
+
+# Ignore environment variables and secret keys
+.env
+firebase-admin-key.json
