@@ -9,7 +9,7 @@ dotenv.config();
 
 // User Signup Function
 export const userSignup = async (req, res) => {
-  const { password, EnrollNum, name, course, Number, email } = req.body;
+  const { password, EnrollNum, name, course, Number, email, year } = req.body;
 
   try {
       // Hash password before storing
@@ -27,7 +27,8 @@ export const userSignup = async (req, res) => {
           createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
           course,
           Number,
-          email
+          email,
+          year
       });
 
       res.status(201).json({ message: "User created successfully"});
@@ -79,13 +80,9 @@ export const userLogin = async (req, res) => {
   
       res.status(200).json({
         message: 'Login successful',
-        // user: {
-        //   uid: userRecord.uid,
-        //   email: userRecord.email,
-        //   name: userData.name,
-        //   EnrollNum: userData.EnrollNum,
-        //   Token: token,
-        // },
+        user: {
+          Token: token,
+        },
       });
     } catch (error) {
       console.error('Login error:', error);
