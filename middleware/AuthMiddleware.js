@@ -14,11 +14,11 @@ const verifyFirebaseToken = async (req, res, next) => {
   
   try {
     const authHeader = req.headers.authorization;
-    console.log('Auth header:', authHeader ? `${authHeader.substring(0, 15)}...` : 'none');
+    //console.log('Auth header:', authHeader ? `${authHeader.substring(0, 15)}...` : 'none');
 
     const idToken = req.headers.authorization?.split('Bearer ')[1];
     if (!idToken) {
-      console.log('No token provided in Authorization header');
+      //console.log('No token provided in Authorization header');
       return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
 
@@ -27,7 +27,7 @@ const verifyFirebaseToken = async (req, res, next) => {
       algorithms: ['HS256'], // Use HS256 for symmetric signing
     });
 
-    console.log('Token verified successfully');
+    //console.log('Token verified successfully');
     req.user = decodedPayload;
     //console.log(req.user.uid);
 

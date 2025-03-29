@@ -8,6 +8,9 @@ import cors from "cors"
 import verifyToken from "./middleware/AuthMiddleware.js"
 import successpayroute from "./routes/successpayroute.js"
 //import rateLimit from 'express-rate-limit'
+import {saveUserRequest} from "./controllers/requestController.js"
+import {getAllRequests} from "./controllers/getAllReqController.js"
+import {deleteRequestByUserData} from "./controllers/acceptRequestController.js"
 
 // Load environment variables from .env file
 dotenv.config();
@@ -31,7 +34,10 @@ app.use('/auth', authRoutes); // Authentication routes (login, signup)
 app.use('/user',verifyToken, userRoutes); // User-related routes (profile)
 app.use('/initiate_payment',verifyToken, paymentRoutes); // Payment-related routes (payment history)
 app.use('/token',verifyToken, tokenRoutes); // Token-related routes (generate token)
- app.use('/admin',successpayroute);
+app.use('/admin',successpayroute);
+ app.post('/request',verifyToken, saveUserRequest)
+ app.get('/get_requests', getAllRequests)
+ app.delete(`/accept_request/:uid`,deleteRequestByUserData)
 
 // Error-handling middleware
 app.use((err, req, res, next) => {

@@ -70,13 +70,13 @@ export const userLogin = async (req, res) => {
       // Generate JWT token with 1-month expiry
       const token = generateToken(userRecord.uid);
   
-      // Set the token in an HTTP-Only Cookie (valid for 1 month)
-      res.cookie('authToken', token, {
-        httpOnly: true, // Prevents access from JavaScript
-        secure: true, // Ensures it's only sent over HTTPS
-        sameSite: 'Strict',
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month in milliseconds
-      });
+      // // Set the token in an HTTP-Only Cookie (valid for 1 month)
+      // res.cookie('authToken', token, {
+      //   httpOnly: true, // Prevents access from JavaScript
+      //   secure: true, // Ensures it's only sent over HTTPS
+      //   sameSite: 'Strict',
+      //   maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month in milliseconds
+      // });
   
       res.status(200).json({
         message: 'Login successful',
