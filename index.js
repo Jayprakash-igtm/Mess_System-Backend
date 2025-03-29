@@ -7,7 +7,7 @@ import tokenRoutes from './routes/tokenRoutes.js'
 import cors from "cors"
 import verifyToken from "./middleware/AuthMiddleware.js"
 import successpayroute from "./routes/successpayroute.js"
-//import rateLimit from 'express-rate-limit'
+import rateLimit from 'express-rate-limit'
 import {saveUserRequest} from "./controllers/requestController.js"
 import {getAllRequests} from "./controllers/getAllReqController.js"
 import {deleteRequestByUserData} from "./controllers/acceptRequestController.js"
@@ -19,15 +19,17 @@ const app= express();
 const PORT = process.env.PORT || 3000;
 
 
+const limiter = rateLimit({
+  windowMs: 2 * 60 * 1000, // 2 minutes
+  max: 250, // limit each IP to 250 requests per windowMs
+  message: 'Too many requests from this IP, please try again later'
+});
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors({ origin: true })); // Enable CORS
+app.use(limiter); // Apply rate limit to all routes
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000, // 15 minutes
-//   max: 30, // limit each IP to 30 requests per windowMs
-//   message: 'Too many requests from this IP, please try again later'
-// });
 
 // Routes
 app.use('/auth', authRoutes); // Authentication routes (login, signup)
