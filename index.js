@@ -77,7 +77,3 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
-
-//
-//mongodb+srv://jayprakashbts2004:PY5ybu9tofKuFpwh@cluster0.egnxprp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
